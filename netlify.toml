@@ -1,0 +1,12 @@
+# Netlify configuration for the Rooftiq static site.
+# No build step: the self-contained index.html at the repo root is served as-is.
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
