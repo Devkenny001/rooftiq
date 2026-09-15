@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooftiq | Modern Roofing Services</title>
+  <meta name="description" content="Rooftiq is a licensed and insured roofing company offering installation, repair, replacement and inspections for homes and businesses. Get a free quote today.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;700&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ============ 00 · PRELOADER ============ -->
+<div id="rq-load" role="status" aria-live="polite" aria-label="Loading">
+<style>
+#rq-load,#rq-load *{ box-sizing:border-box; margin:0; padding:0; }
+#rq-load{
+  position:fixed; inset:0; z-index:2000;
+  display:grid; place-items:center;
+  background:#111418;
+  font-family:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  opacity:1; visibility:visible;
+  transition:opacity .55s cubic-bezier(.2,.7,.3,1), visibility 0s .55s;
+}
+#rq-load.is-done{ opacity:0; visibility:hidden; pointer-events:none; }
+#rq-load .ld{ width:min(420px,80vw); display:flex; flex-direction:column; align-items:center; }
+#rq-load .ld-mark{
+  display:flex; align-items:center; gap:14px; color:#fff;
+  opacity:0; transform:translateY(8px);
+  animation:rqIn .65s cubic-bezier(.2,.7,.3,1) .05s forwards;
+}
+#rq-load .ld-mark svg{ width:clamp(56px,9vw,76px); height:auto; display:block; }
+#rq-load .ld-mark span{
+  font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif; font-weight:800;
+  font-size:clamp(2.4rem,7vw,3.6rem); letter-spacing:.02em; line-height:1;
+}
+#rq-load .ld-mark span b{ color:#d8232a; font-weight:inherit; }
+@keyframes rqIn{ to{ opacity:1; transform:none; } }
+#rq-load .ld-track{
+  margin-top:30px; width:min(220px,55vw); height:2px; border-radius:2px;
+  background:rgba(255,255,255,.14); overflow:hidden;
+}
+#rq-load .ld-fill{
+  display:block; width:0%; height:100%; border-radius:2px;
+  background:linear-gradient(90deg,#d8232a,#ff6a70);
+  transition:width .28s cubic-bezier(.2,.7,.3,1);
+}
+#rq-load .ld-note{
+  margin-top:18px; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  opacity:0; animation:rqIn .5s cubic-bezier(.2,.7,.3,1) .25s forwards;
+}
+@media (prefers-reduced-motion:reduce){
+  #rq-load .ld-mark,#rq-load .ld-note{ opacity:1; transform:none; animation:none; }
+  #rq-load .ld-fill{ transition:none; }
+  #rq-load{ transition:opacity .01s; }
+}
+</style>
+
+<div class="ld">
+  <div class="ld-mark" aria-label="Rooftiq">
+    <svg viewBox="0 0 48 40" aria-hidden="true">
+      <path d="M4 24 22 6l18 18" fill="none" stroke="#d8232a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 36 30 22l14 14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M31 8h6v9" fill="none" stroke="#d8232a" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <span>ROOF<b>TIQ</b></span>
+  </div>
+  <div class="ld-track" aria-hidden="true"><span class="ld-fill" id="rq-load-fill"></span></div>
+  <p class="ld-note">Denver &amp; the Front Range · Since 1999</p>
+</div>
+
+<script>
+(function(){
+  var el   = document.getElementById('rq-load');
+  if(!el) return;
+  var fill = document.getElementById('rq-load-fill');
+  var done = false, shown = 0, target = 8, raf = null, poll = null;
+
+  document.documentElement.style.overflow = 'hidden';
+
+  // Real progress: how many of the page's images have finished loading.
+  // Capped at 90 so the last stretch belongs to the window load event.
+  function measure(){
+    var imgs = document.images, total = imgs.length, ready = 0;
+    if(!total) return 90;
+    for(var i=0;i<total;i++){ if(imgs[i].complete) ready++; }
+    return Math.min(90, Math.round((ready/total)*90));
+  }
+
+  function tick(){
+    shown += Math.max(0.6, (target - shown) * 0.10);
+    if(shown > target) shown = target;
+    fill.style.width = Math.round(shown) + '%';
+    if(shown >= 100){ finish(); return; }
+    raf = requestAnimationFrame(tick);
+  }
+
+  function finish(){
+    if(done) return; done = true;
+    clearInterval(poll);
+    if(raf) cancelAnimationFrame(raf);
+    fill.style.width = '100%';
+    setTimeout(dismiss, 260);
+  }
+
+  function dismiss(){
+    el.classList.add('is-done');
+    document.documentElement.style.overflow = '';
+    document.documentElement.classList.add('is-loaded');
+    window.removeEventListener('keydown', onKey);
+    setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 750);
+  }
+  function onKey(e){ if(e.key === 'Escape') finish(); }
+
+  poll = setInterval(function(){ target = Math.max(target, measure()); }, 120);
+  raf = requestAnimationFrame(tick);
+
+  function complete(){ clearInterval(poll); target = 100; }
+  if(document.readyState === 'complete') setTimeout(complete, 200);
+  else window.addEventListener('load', complete);
+
+  // Hard ceiling so a slow or failed asset can never trap the visitor.
+  setTimeout(complete, 2600);
+  setTimeout(finish, 4000);
+
+  el.addEventListener('click', finish);
+  window.addEventListener('keydown', onKey);
+})();
+</script>
+</div>
+
+<!-- ============ SVG ICON SPRITE ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-roof" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m14 6 6 6M4 20l8-8M14 4l2-2 6 6-2 2-6-6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15a4 4 0 0 1-.5-8A6 6 0 0 1 18 8a3.5 3.5 0 0 1 0 7H7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 18-1 3M13 18l-1 3M17 18l-1 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m3 7 9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7-11-7Z" fill="currentColor"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8L12 2Z" fill="currentColor"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M6 17h4V9H4v4a4 4 0 0 0 2 4Zm10 0h4V9h-6v4a4 4 0 0 0 2 4Z" fill="currentColor"/></symbol>
+    <symbol id="i-gutter" viewBox="0 0 24 24"><path d="M3 6h18v3a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M18 12v9M14 21h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-ruler" viewBox="0 0 24 24"><path d="m3 17 14-14 4 4L7 21l-4-4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8 12 2 2m1-5 2 2m1-5 2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 13.5a6.5 6.5 0 0 1 3.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8Z" fill="currentColor"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-yt" viewBox="0 0 24 24"><path d="M22 8.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C15.9 5 12 5 12 5s-3.9 0-6.8.2c-.5.1-1.4.1-2.3 1C2.2 6.9 2 8.5 2 8.5S1.8 10.4 1.8 12.3v1.4c0 1.9.2 3.8.2 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 6.6.2 6.6.2s3.9 0 6.8-.2c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4C22.2 10.4 22 8.5 22 8.5ZM10 15.5v-7l6 3.5-6 3.5Z" fill="currentColor"/></symbol>
+    <symbol id="i-li" viewBox="0 0 24 24"><path d="M6.5 9H3v12h3.5V9ZM4.8 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM21 13.8c0-3.4-1.8-5-4.3-5-1.9 0-2.8 1-3.3 1.8V9H10v12h3.5v-6c0-1.6.3-3.1 2.3-3.1s2 1.8 2 3.2v5.9H21v-7.2Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
+<!-- ============ 01 · HEADER: the nav lives inside the hero block below ============ -->
+
+<main>
+
+<!-- ══════════════════════════════════════════════════════════════════
+  02 · HERO
+
+  Plain full-bleed video with the headline over it.
+
+  ► HEADLINE: two nowrap lines, Anton (heavy condensed grotesque), all caps.
+        MODERN ROOFING
+        SERVICES → REPAIRS → INSTALLS → INSPECTIONS   (line 2 rotates every 2.6s)
+    Line 1 white, the rotating word red. Small gap between lines via
+    .rq-line + .rq-line { margin-top:clamp(4px,.8vh,12px) }.
+
+  ► SIZES: mobile clamp(22px,7.8vw,100px). Desktop overrides to clamp(26px,4.4vw,58px).
+
+  ► NAV: logo clamp(78px,7vw,112px), italic serif links centred
+    (desktop 1.35vw max 19px, mobile menu 26px), glowing pill button right
+    that scrolls to the VSL, burger + slide-down menu under 761px.
+    Hero is 95dvh on phones.
+
+  ► VIDEO: free Pexels aerial of a roof under construction (24s, 1080p).
+    Swap the <source src> for your own mp4. The poster is a still that
+    shows until the first frame paints. To go photo-only, delete the
+    <video> block and the poster <img> stays.
+══════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+<div id="rq-hero">
+<style>
+#rq-hero *{ box-sizing:border-box; margin:0; padding:0; }
+
+#rq-hero{
+  --rq-sans:'Inter',system-ui,-apple-system,sans-serif;
+  --rq-serif:'Instrument Serif','Georgia',serif;
+  --rq-heavy:'Anton','Barlow Condensed','Arial Narrow',sans-serif;
+  --rq-red:#D8232A;
+  --rq-red-deep:#7A1014;
+  position:relative; width:100%; display:block; isolation:isolate;
+  font-family:var(--rq-sans); color:#fff;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── the stage ── */
+#rq-hero .rq-stage{
+  position:relative; width:100%;
+  height:100vh; height:100dvh;
+  overflow:hidden; background:#111418;
+}
+#rq-hero .rq-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+#rq-hero .rq-bg img,
+#rq-hero .rq-bg video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block;
+  filter:brightness(.95) saturate(1.02);
+}
+#rq-hero .rq-bg video{ z-index:1; }
+/* grading: a band top and bottom behind the nav only. No centre vignette. */
+#rq-hero .rq-bg::after{
+  content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:
+    linear-gradient(180deg,
+      rgba(17,20,24,.62) 0%,
+      rgba(17,20,24,.06) 30%,
+      rgba(17,20,24,.06) 70%,
+      rgba(17,20,24,.58) 100%);
+}
+
+/* ── the headline: two lines, one font, one size ── */
+#rq-hero .rq-title{
+  position:absolute; top:50%; left:50%; z-index:3;
+  transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:center; gap:0;
+  text-align:center; width:min(1200px,96vw); pointer-events:none;
+  font-weight:400; letter-spacing:0;
+}
+#rq-hero .rq-line{
+  display:block;
+  white-space:nowrap;            /* never break mid-line */
+  font-family:var(--rq-heavy);
+  font-style:normal;
+  font-weight:400;               /* Anton ships a single weight */
+  font-size:clamp(22px,7.8vw,100px);   /* MOBILE size */
+  letter-spacing:-.01em;
+  line-height:.98;
+  color:#fff;
+  text-shadow:0 3px 26px rgba(0,0,0,.55);
+}
+#rq-hero .rq-line + .rq-line{ margin-top:clamp(4px,.8vh,12px); }
+
+/* entrance */
+#rq-hero .rq-title > *{
+  opacity:0; transform:translateY(18px); filter:blur(8px);
+  animation:rqRise 1.2s cubic-bezier(.16,1,.3,1) forwards;
+}
+#rq-hero .rq-title > *:nth-child(2){ animation-delay:.12s; }
+@keyframes rqRise{ to{ opacity:1; transform:none; filter:blur(0); } }
+
+/* rotating second line: words stacked in one cell, one visible at a time */
+#rq-hero .rq-rotator{ display:grid; justify-items:center; }
+#rq-hero .rq-word{
+  grid-area:1/1; display:block; white-space:nowrap;
+  color:var(--rq-red);            /* rotating word in brand red, line 1 stays white */
+  opacity:0; transform:translateY(18px); filter:blur(8px);
+  transition:opacity .55s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1), filter .55s cubic-bezier(.16,1,.3,1);
+}
+#rq-hero .rq-word.is-active{ opacity:1; transform:none; filter:blur(0); }
+#rq-hero .rq-word.is-leaving{ opacity:0; transform:translateY(-18px); filter:blur(8px); }
+@media (prefers-reduced-motion:reduce){
+  #rq-hero .rq-word{ transition:none; }
+}
+
+/* ── nav ── */
+#rq-hero .rq-nav{
+  position:absolute; top:0; left:0; right:0; z-index:6;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:clamp(16px,2.4vw,26px) clamp(18px,4vw,52px);
+  gap:18px;
+}
+#rq-hero .rq-nav-logo{
+  display:inline-flex; align-items:center; gap:12px; flex-shrink:0;
+  color:#fff; text-decoration:none;
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.45));
+}
+#rq-hero .rq-nav-logo svg{ height:clamp(78px,7vw,112px); width:auto; display:block; }
+#rq-hero .rq-nav-logo span{
+  font-family:'Barlow Condensed','Arial Narrow',sans-serif; font-weight:800;
+  font-size:clamp(34px,3.2vw,50px); letter-spacing:.02em; line-height:1;
+}
+#rq-hero .rq-nav-logo span b{ color:var(--rq-red); font-weight:inherit; }
+#rq-hero .rq-nav-links{
+  display:flex; align-items:center; gap:clamp(16px,2.2vw,34px);
+  position:absolute; left:50%; transform:translateX(-50%);
+}
+#rq-hero .rq-nav-links a{
+  font-family:var(--rq-serif); font-style:italic; font-weight:400;
+  font-size:clamp(15px,1.35vw,19px); color:#fff; letter-spacing:.01em;
+  text-decoration:none; text-shadow:0 1px 12px rgba(0,0,0,.6);
+  opacity:.92; transition:opacity .2s ease; white-space:nowrap; cursor:pointer;
+}
+#rq-hero .rq-nav-links a:hover{ opacity:1; }
+
+/* ── button ── */
+#rq-hero .rq-btn{
+  position:relative; display:inline-flex; border-radius:99px;
+  text-decoration:none; cursor:pointer; isolation:isolate; -webkit-tap-highlight-color:transparent;
+}
+#rq-hero .rq-btn .glow{
+  position:absolute; inset:-8px; border-radius:inherit; z-index:0;
+  background:radial-gradient(60% 130% at 50% 50%, rgba(216,35,42,.78),
+    rgba(216,35,42,.34) 55%, transparent 80%);
+  filter:blur(14px); opacity:.9; animation:rqPulse 3.4s ease-in-out infinite;
+}
+@keyframes rqPulse{ 0%,100%{ opacity:.6; transform:scale(.97); } 50%{ opacity:1; transform:scale(1.05); } }
+@keyframes rqBtnFlow{ 0%{ background-position:0% 0; } 100%{ background-position:-200% 0; } }
+#rq-hero .rq-btn .body{
+  position:relative; z-index:1; display:inline-flex; align-items:center; gap:9px;
+  padding:11px 24px; border-radius:inherit; overflow:hidden;
+  background:linear-gradient(100deg,#D8232A 0%,#7A1014 18%,#1A0507 34%,#000000 50%,#1A0507 66%,#7A1014 82%,#D8232A 100%);
+  background-size:200% 100%; background-repeat:repeat;
+  animation:rqBtnFlow 5s linear infinite;
+  border:1.5px solid rgba(255,255,255,.35);
+  box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.20), inset 0 -10px 22px rgba(0,0,0,.6);
+  color:#fff; font-family:var(--rq-sans); font-weight:700; letter-spacing:.01em;
+  font-size:clamp(13px,1vw,15px); white-space:nowrap; text-shadow:0 2px 12px rgba(0,0,0,.65);
+}
+#rq-hero .rq-btn .body svg{ width:15px; height:15px; flex-shrink:0; stroke:#fff; }
+#rq-hero .rq-btn:hover .glow{ opacity:1; filter:blur(18px); }
+#rq-hero .rq-btn:active{ transform:translateY(1px); }
+
+/* ── mobile hamburger + menu ── */
+#rq-hero .rq-burger{
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  width:44px; height:40px; padding:8px; border:0; background:transparent;
+  cursor:pointer; z-index:8; -webkit-tap-highlight-color:transparent;
+}
+#rq-hero .rq-burger span{
+  display:block; width:26px; height:2px; border-radius:2px; background:#fff;
+  box-shadow:0 1px 6px rgba(0,0,0,.5);
+  transition:transform .3s ease, opacity .2s ease;
+}
+#rq-hero.rq-open .rq-burger span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+#rq-hero.rq-open .rq-burger span:nth-child(2){ opacity:0; }
+#rq-hero.rq-open .rq-burger span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+#rq-hero .rq-mobile-menu{
+  position:absolute; top:0; left:0; right:0; z-index:5;
+  display:flex; flex-direction:column; align-items:center; gap:24px;
+  padding:124px 24px 44px;
+  background:rgba(17,20,24,.94);
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transform:translateY(-105%); opacity:0; pointer-events:none;
+  transition:transform .35s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+}
+#rq-hero.rq-open .rq-mobile-menu{ transform:translateY(0); opacity:1; pointer-events:auto; }
+#rq-hero .rq-mobile-menu a{
+  font-family:var(--rq-serif); font-style:italic; font-weight:400;
+  font-size:26px; line-height:1; color:#fff; text-decoration:none;
+}
+#rq-hero .rq-mobile-menu .rq-mobile-cta{
+  margin-top:8px; font-family:var(--rq-sans); font-style:normal; font-weight:700; font-size:15px;
+  padding:12px 26px; border-radius:99px; background:var(--rq-red); color:#fff;
+}
+
+#rq-hero :focus-visible{ outline:3px solid #ff6a70; outline-offset:3px; }
+
+@media (min-width:761px){
+  #rq-hero .rq-mobile-menu{ display:none; }
+  /* DESKTOP size... deliberately smaller than the mobile rule above */
+  #rq-hero .rq-line{ font-size:clamp(26px,4.4vw,58px); }
+}
+@media (max-width:760px){
+  #rq-hero .rq-nav-links{ display:none; }
+  #rq-hero .rq-btn{ display:none; }
+  #rq-hero .rq-burger{ display:inline-flex; }
+  /* slightly shorter hero on phones */
+  #rq-hero .rq-stage{ height:95vh; height:95dvh; }
+}
+@media (prefers-reduced-motion:reduce){
+  #rq-hero .rq-btn .glow,
+  #rq-hero .rq-btn .body{ animation:none !important; }
+  #rq-hero .rq-title > *{ animation-duration:.01ms; }
+}
+</style>
+
+<div class="rq-stage">
+
+  <div class="rq-bg" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?w=1920&q=80&auto=format&fit=crop" alt="" loading="eager" fetchpriority="high">
+    <video autoplay muted loop playsinline preload="auto" disablepictureinpicture poster="https://images.unsplash.com/photo-1635424710928-0544e8512eae?w=1920&q=80&auto=format&fit=crop">
+      <source src="https://videos.pexels.com/video-files/4198817/4198817-hd_1920_1080_24fps.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <h1 class="rq-title">
+    <span class="rq-line">MODERN ROOFING</span>
+    <span class="rq-line rq-rotator" id="rqRotator" aria-live="polite">
+      <span class="rq-word is-active">SERVICES</span>
+      <span class="rq-word">REPAIRS</span>
+      <span class="rq-word">INSTALLS</span>
+      <span class="rq-word">INSPECTIONS</span>
+    </span>
+  </h1>
+
+  <nav class="rq-nav" aria-label="Main navigation">
+    <a class="rq-nav-logo" href="#hero" aria-label="Rooftiq">
+      <svg viewBox="0 0 48 40" aria-hidden="true">
+        <path d="M4 24 22 6l18 18" fill="none" stroke="#D8232A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 36 30 22l14 14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M31 8h6v9" fill="none" stroke="#D8232A" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span>ROOF<b>TIQ</b></span>
+    </a>
+    <div class="rq-nav-links">
+      <a href="#services" data-rqid="services">Services</a>
+      <a href="#projects" data-rqid="projects">Our work</a>
+      <a href="#about" data-rqid="about">About</a>
+      <a href="#process" data-rqid="process">How it works</a>
+      <a href="#pricing" data-rqid="pricing">Pricing</a>
+      <a href="#faq" data-rqid="faq">FAQ</a>
+      <a href="#contact" data-rqid="contact">Contact us</a>
+    </div>
+    <a class="rq-btn" id="rq-book" data-rq-book="1" href="#vsl" aria-label="Watch the 3-minute video">
+      <span class="glow" aria-hidden="true"></span>
+      <span class="body">Watch the 3-min video
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+    <button class="rq-burger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="rq-mobile-menu">
+    <a href="#services" data-rqid="services">Services</a>
+    <a href="#projects" data-rqid="projects">Our work</a>
+    <a href="#about" data-rqid="about">About</a>
+    <a href="#process" data-rqid="process">How it works</a>
+    <a href="#pricing" data-rqid="pricing">Pricing</a>
+    <a href="#faq" data-rqid="faq">FAQ</a>
+    <a href="#contact" data-rqid="contact">Contact us</a>
+    <a href="#vsl" class="rq-mobile-cta" data-rq-book="1">Watch the 3-min video</a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  /* page-builder wrappers (GHL etc.) paint their own backgrounds behind the hero */
+  try{
+    var el=document.getElementById('rq-hero');
+    if(el){
+      var p=el.parentElement, depth=0;
+      while(p && depth<40){
+        var cs=window.getComputedStyle(p), bg=cs.backgroundColor;
+        if(bg && bg!=='rgba(0, 0, 0, 0)' && bg!=='transparent'){
+          p.style.setProperty('background','transparent','important');
+          p.style.setProperty('background-color','transparent','important');
+        }
+        if(p===document.body) break;
+        p=p.parentElement; depth++;
+      }
+    }
+  }catch(e){}
+
+  var root=document.getElementById('rq-hero');
+  if(!root) return;
+
+  /* forced muted playback so iOS never paints a native play button */
+  var vids=root.querySelectorAll('video');
+  function forcePlay(){
+    for(var i=0;i<vids.length;i++){
+      var v=vids[i];
+      try{
+        v.muted=true; v.defaultMuted=true;
+        v.playsInline=true;
+        v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+        v.removeAttribute('controls');
+        var pr=v.play(); if(pr && pr.catch){ pr.catch(function(){}); }
+      }catch(e){}
+    }
+  }
+  forcePlay();
+  ['touchstart','pointerdown','click','keydown'].forEach(function(ev){
+    window.addEventListener(ev, forcePlay, {once:true, passive:true});
+  });
+
+  /* anchors: page builders can render sections inside nested documents */
+  function findById(id){
+    var d=document.getElementById(id); if(d) return d;
+    try{ var t=(window.top||window).document; var e=t.getElementById(id); if(e) return e; }catch(_){}
+    try{
+      var ifr=document.querySelectorAll('iframe');
+      for(var i=0;i<ifr.length;i++){
+        try{ var cd=ifr[i].contentDocument; if(cd){ var el=cd.getElementById(id); if(el) return el; } }catch(_){}
+      }
+    }catch(_){}
+    return null;
+  }
+  function go(id,e){
+    var el=findById(id);
+    if(el){ if(e) e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+  }
+
+  var burger=root.querySelector('.rq-burger');
+  function closeMenu(){
+    root.classList.remove('rq-open');
+    if(burger) burger.setAttribute('aria-expanded','false');
+  }
+  if(burger){
+    burger.addEventListener('click',function(){
+      var open=root.classList.toggle('rq-open');
+      burger.setAttribute('aria-expanded', open?'true':'false');
+    });
+  }
+
+  var links=root.querySelectorAll('[data-rqid]');
+  for(var i=0;i<links.length;i++){
+    (function(a){ a.addEventListener('click',function(e){ go(a.getAttribute('data-rqid'),e); closeMenu(); }); })(links[i]);
+  }
+  /* the VSL section, matching this button's href */
+  var books=root.querySelectorAll('[data-rq-book]');
+  for(var j=0;j<books.length;j++){
+    books[j].addEventListener('click',function(e){ go('vsl',e); closeMenu(); });
+  }
+
+  /* rotating headline word */
+  var rot=document.getElementById('rqRotator');
+  if(rot && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var words=rot.querySelectorAll('.rq-word'), wi=0;
+    setInterval(function(){
+      var cur=words[wi];
+      cur.classList.remove('is-active'); cur.classList.add('is-leaving');
+      setTimeout(function(){ cur.classList.remove('is-leaving'); }, 700);
+      wi=(wi+1)%words.length;
+      words[wi].classList.add('is-active');
+    }, 2600);
+  }
+})();
+</script>
+</div>
+</section>
+
+<!-- ============ 03 · TRUST MARQUEE ============ -->
+<section class="trust" id="trust">
+  <div class="container trust__inner">
+    <div class="trust__label">Certified &amp; Trusted By</div>
+    <div class="marquee" aria-label="Certifications and partners">
+      <div class="marquee__track">
+        <span>GAF Master Elite®</span><span>Owens Corning Preferred</span><span>CertainTeed SELECT</span><span>BBB A+ Accredited</span><span>NRCA Member</span><span>HAAG Certified</span><span>Angi Super Service</span><span>Velux 5-Star</span>
+        <span>GAF Master Elite®</span><span>Owens Corning Preferred</span><span>CertainTeed SELECT</span><span>BBB A+ Accredited</span><span>NRCA Member</span><span>HAAG Certified</span><span>Angi Super Service</span><span>Velux 5-Star</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · VSL (VIDEO SALES LETTER) ============ -->
+<section class="section vsl" id="vsl">
+  <div class="vsl__glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head section-head--light vsl__head reveal">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Watch This First · 3 min</span>
+      <h2>How Denver homeowners get a new roof <em>without</em> the stress, surprises or storm-chaser games</h2>
+      <p>Marcus Reed, our founder, walks you through what to expect, how insurance really works, and the three questions to ask any roofer before you sign.</p>
+    </div>
+
+    <div class="vsl__grid">
+      <div class="vsl__player reveal" id="vslPlayer">
+        <div class="vsl__frame" id="vslFrame">
+          <img class="vsl__poster" src="https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1280&h=720&fit=crop&q=80&auto=format" alt="Rooftiq crew on a residential roof">
+          <div class="vsl__poster-shade"></div>
+          <button class="vsl__play" id="vslPlay" type="button" aria-label="Play video">
+            <span class="vsl__play-ring"></span>
+            <span class="vsl__play-btn"><svg class="ico"><use href="#i-play"/></svg></span>
+            <span class="vsl__play-text">Play the 3-minute video</span>
+          </button>
+          <div class="vsl__bar" aria-hidden="true">
+            <span class="vsl__sound"><svg class="ico"><use href="#i-bolt"/></svg> Sound on</span>
+            <span class="vsl__duration">03:12</span>
+          </div>
+        </div>
+        <div class="vsl__chapters" id="vslChapters">
+          <button type="button" data-start="0" class="is-active"><span>00:00</span> Why most roofing quotes are wrong</button>
+          <button type="button" data-start="48"><span>00:48</span> What your insurance actually covers</button>
+          <button type="button" data-start="112"><span>01:52</span> Our 1-day install, step by step</button>
+          <button type="button" data-start="165"><span>02:45</span> The 25-year promise</button>
+        </div>
+      </div>
+
+      <aside class="vsl__offer reveal" style="--d:.15s">
+        <span class="vsl__offer-tag">Free for Denver Metro homeowners</span>
+        <h3>Claim your no-cost roof inspection</h3>
+        <ul class="vsl__stack">
+          <li><svg class="ico"><use href="#i-check"/></svg><div><strong>21-point drone inspection</strong><span>Normally $249</span></div></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><div><strong>Written condition report</strong><span>Insurer-ready, with photos</span></div></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><div><strong>Itemized quote, same day</strong><span>Valid for 60 days, no pressure</span></div></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><div><strong>Storm-damage claim review</strong><span>We tell you honestly if you have one</span></div></li>
+        </ul>
+        <div class="vsl__value"><span>Total value</span><strong>$249</strong><em>Yours free</em></div>
+        <a href="#contact" class="btn btn--red btn--block btn--lg">Book My Free Inspection <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <p class="vsl__fine"><svg class="ico"><use href="#i-shield"/></svg> No obligation. If your roof is fine, we'll tell you so and leave.</p>
+        <div class="vsl__proof">
+          <div class="avatars">
+            <img src="https://i.pravatar.cc/80?img=21" alt=""><img src="https://i.pravatar.cc/80?img=36" alt=""><img src="https://i.pravatar.cc/80?img=49" alt="">
+          </div>
+          <span><strong>38 inspections</strong> booked this week</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · SERVICES ============ -->
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Our Services</span>
+      <h2>Roofing services built for<br>every weather</h2>
+      <p>From a single missing shingle to a complete commercial re-roof, our crews handle it with the same care and precision.</p>
+    </div>
+
+    <div class="services__grid">
+      <article class="service-card reveal tilt" style="--d:0s">
+        <div class="service-card__img"><img src="https://images.unsplash.com/photo-1643225523483-e2c434191bba?w=640&h=480&fit=crop&q=80&auto=format" alt="Roofer carrying a bundle of shingles across a roof"></div>
+        <div class="service-card__icon"><svg class="ico"><use href="#i-roof"/></svg></div>
+        <div class="service-card__body">
+          <h3>Roof Installation</h3>
+          <p>New builds and additions with asphalt, metal, tile or slate. Precision-fitted and warranty backed.</p>
+          <a href="#contact" class="link-arrow">Learn More <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="service-card reveal tilt" style="--d:.1s">
+        <div class="service-card__img"><img src="https://images.unsplash.com/photo-1635424824849-1b09bdcc55b1?w=640&h=480&fit=crop&q=80&auto=format" alt="Roofer fastening shingles with a power drill"></div>
+        <div class="service-card__icon"><svg class="ico"><use href="#i-hammer"/></svg></div>
+        <div class="service-card__body">
+          <h3>Roof Repair</h3>
+          <p>Leaks, storm and hail damage, flashing and vent repairs. Fast response, permanent fixes.</p>
+          <a href="#contact" class="link-arrow">Learn More <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="service-card reveal tilt" style="--d:.2s">
+        <div class="service-card__img"><img src="https://images.unsplash.com/photo-1635424709845-3a85ad5e1f5e?w=640&h=480&fit=crop&q=80&auto=format" alt="Roofer measuring a shingle roof"></div>
+        <div class="service-card__icon"><svg class="ico"><use href="#i-search"/></svg></div>
+        <div class="service-card__body">
+          <h3>Roof Inspection</h3>
+          <p>Drone-assisted 21-point inspections with a written report you can hand to your insurer.</p>
+          <a href="#contact" class="link-arrow">Learn More <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="service-card reveal tilt" style="--d:.3s">
+        <div class="service-card__img"><img src="https://images.unsplash.com/photo-1633759593085-1eaeb724fc88?w=640&h=480&fit=crop&q=80&auto=format" alt="Old shingles being removed from a roof"></div>
+        <div class="service-card__icon"><svg class="ico"><use href="#i-shield"/></svg></div>
+        <div class="service-card__body">
+          <h3>Roof Replacement</h3>
+          <p>Full tear-off and re-roof, typically completed in 1–2 days with a 25-year workmanship warranty.</p>
+          <a href="#contact" class="link-arrow">Learn More <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="service-card reveal tilt" style="--d:.4s">
+        <div class="service-card__img"><img src="https://images.unsplash.com/photo-1590365876016-da05ac533e83?w=640&h=480&fit=crop&q=80&auto=format" alt="Roof edge with gutter and gable window"></div>
+        <div class="service-card__icon"><svg class="ico"><use href="#i-gutter"/></svg></div>
+        <div class="service-card__body">
+          <h3>Gutters &amp; Drainage</h3>
+          <p>Seamless aluminum gutters, guards and downspouts sized correctly for Colorado snowmelt.</p>
+          <a href="#contact" class="link-arrow">Learn More <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="service-card reveal tilt" style="--d:.5s">
+        <div class="service-card__img"><img src="https://images.unsplash.com/photo-1681049400158-0ff6249ac315?w=640&h=480&fit=crop&q=80&auto=format" alt="Roofer repairing storm damage on a steep roof"></div>
+        <div class="service-card__icon"><svg class="ico"><use href="#i-rain"/></svg></div>
+        <div class="service-card__body">
+          <h3>Storm &amp; Hail Damage</h3>
+          <p>Emergency tarping, insurance claim support and complete restoration after severe weather.</p>
+          <a href="#contact" class="link-arrow">Learn More <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · WHY CHOOSE US + STATS ============ -->
+<section class="section why" id="why">
+  <div class="container">
+    <div class="why__grid">
+      <ul class="why__list why__list--left reveal">
+        <li><span class="check"><svg class="ico"><use href="#i-check"/></svg></span><div><strong>Licensed &amp; Insured</strong><span>Fully bonded, $2M liability coverage.</span></div></li>
+        <li><span class="check"><svg class="ico"><use href="#i-check"/></svg></span><div><strong>Experienced Team</strong><span>Every crew lead has 10+ years on roofs.</span></div></li>
+        <li><span class="check"><svg class="ico"><use href="#i-check"/></svg></span><div><strong>Quality Materials</strong><span>Manufacturer-certified premium systems.</span></div></li>
+      </ul>
+
+      <div class="why__figure reveal">
+        <div class="why__ring"></div>
+        <div class="why__ring why__ring--2"></div>
+        <img src="https://images.unsplash.com/photo-1672748341520-6a839e6c05bb?w=520&h=660&fit=crop&crop=faces&q=80&auto=format" alt="Rooftiq crew lead in a red hard hat">
+        <div class="why__badge"><svg class="ico"><use href="#i-award"/></svg><span>25 Yr<br>Warranty</span></div>
+      </div>
+
+      <ul class="why__list why__list--right reveal">
+        <li><span class="check"><svg class="ico"><use href="#i-check"/></svg></span><div><strong>Affordable Price</strong><span>Transparent line-item quotes, no surprises.</span></div></li>
+        <li><span class="check"><svg class="ico"><use href="#i-check"/></svg></span><div><strong>On-time Delivery</strong><span>Most re-roofs finished in 1–2 days.</span></div></li>
+        <li><span class="check"><svg class="ico"><use href="#i-check"/></svg></span><div><strong>Satisfaction Guarantee</strong><span>We're not done until you sign off.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="stats-band reveal">
+      <div class="stat">
+        <span class="stat__label">Projects Completed</span>
+        <span class="stat__num"><span class="counter" data-target="1500">0</span>+</span>
+        <svg class="stat__icon ico"><use href="#i-roof"/></svg>
+      </div>
+      <a href="#contact" class="btn btn--red stats-band__cta">Get a Quote</a>
+      <div class="stat">
+        <span class="stat__label">Years of Experience</span>
+        <span class="stat__num"><span class="counter" data-target="25">0</span>+</span>
+        <svg class="stat__icon ico"><use href="#i-award"/></svg>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Expert Roofers</span>
+        <span class="stat__num"><span class="counter" data-target="48">0</span></span>
+        <svg class="stat__icon ico"><use href="#i-users"/></svg>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Customer Rating</span>
+        <span class="stat__num"><span class="counter" data-target="4.9" data-decimals="1">0</span>/5</span>
+        <svg class="stat__icon ico"><use href="#i-star"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="about__head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow__line"></span>About Us</span>
+        <h2>Trusted roofing projects and solutions</h2>
+      </div>
+      <p>With over 25 years of experience, we deliver reliable roofing services using the best materials and latest technology. Family-owned, Denver-based, and proud of every roof we've put on.</p>
+    </div>
+
+    <div class="about__grid">
+      <a href="#projects" class="about-tile reveal" style="--d:0s">
+        <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=700&h=525&fit=crop&q=80&auto=format" alt="Suburban home with a new shingle roof">
+        <div class="about-tile__body"><strong>Residential Roofing</strong><span>Homes, townhouses &amp; multi-family</span></div>
+      </a>
+      <a href="#projects" class="about-tile reveal" style="--d:.12s">
+        <img src="https://images.unsplash.com/photo-1602193458517-db6caca8f1fe?w=700&h=525&fit=crop&q=80&auto=format" alt="Commercial building with a standing seam metal roof">
+        <div class="about-tile__body"><strong>Commercial Roofing</strong><span>TPO, EPDM &amp; standing seam</span></div>
+      </a>
+      <a href="#projects" class="about-tile reveal" style="--d:.24s">
+        <img src="https://images.unsplash.com/photo-1635424709961-f3a150459ad4?w=700&h=525&fit=crop&q=80&auto=format" alt="Two roofers installing new shingles">
+        <div class="about-tile__body"><strong>Roof Replacement</strong><span>Full tear-off &amp; re-roof</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · PROCESS ============ -->
+<section class="section process" id="process">
+  <div class="container">
+    <div class="section-head section-head--light reveal">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>How We Work</span>
+      <h2>From first call to final walkthrough</h2>
+      <p>Our four-step process keeps you informed at every stage — no guesswork, no surprises.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="step reveal" style="--d:0s">
+        <span class="step__num">01</span>
+        <div class="step__icon"><svg class="ico"><use href="#i-phone"/></svg></div>
+        <h3>Free Consultation</h3>
+        <p>Call or book online. We'll schedule an on-site visit within 48 hours.</p>
+      </li>
+      <li class="step reveal" style="--d:.12s">
+        <span class="step__num">02</span>
+        <div class="step__icon"><svg class="ico"><use href="#i-search"/></svg></div>
+        <h3>Inspection &amp; Quote</h3>
+        <p>Drone survey plus a hands-on check. You receive an itemized quote same day.</p>
+      </li>
+      <li class="step reveal" style="--d:.24s">
+        <span class="step__num">03</span>
+        <div class="step__icon"><svg class="ico"><use href="#i-hammer"/></svg></div>
+        <h3>Installation</h3>
+        <p>Our certified crew completes the work, usually in 1–2 days, with daily updates.</p>
+      </li>
+      <li class="step reveal" style="--d:.36s">
+        <span class="step__num">04</span>
+        <div class="step__icon"><svg class="ico"><use href="#i-shield"/></svg></div>
+        <h3>Final Walkthrough</h3>
+        <p>Magnetic nail sweep, full clean-up, and your warranty paperwork in hand.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 09 · INSURANCE CLAIMS ============ -->
+<section class="section claims" id="claims">
+  <div class="container claims__grid">
+    <div class="claims__media reveal">
+      <img src="https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?w=720&h=864&fit=crop&q=80&auto=format" alt="Roofers documenting damage on a tile roof">
+      <div class="claims__stat">
+        <strong><span class="counter" data-target="94">0</span>%</strong>
+        <span>of storm claims we file get approved</span>
+      </div>
+      <div class="claims__chip"><svg class="ico"><use href="#i-award"/></svg> HAAG Certified Inspectors</div>
+    </div>
+    <div class="claims__content reveal" style="--d:.15s">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Insurance Claims Help</span>
+      <h2>Storm damage? We handle the claim so you don't have to</h2>
+      <p>Most homeowners leave money on the table because they don't know what to document, what to say to the adjuster, or what their policy actually owes them. We've filed over 2,000 claims along the Front Range. Here's how it works:</p>
+      <ol class="claims__steps">
+        <li><span>1</span><div><strong>Free damage inspection</strong><p>We document every hail strike and wind-lifted shingle with dated, GPS-tagged photos.</p></div></li>
+        <li><span>2</span><div><strong>We meet your adjuster</strong><p>Our HAAG-certified lead walks the roof with them, so nothing gets missed or under-scoped.</p></div></li>
+        <li><span>3</span><div><strong>You pay only your deductible</strong><p>We work directly from the approved scope. No surprise invoices, no upsells.</p></div></li>
+      </ol>
+      <div class="claims__actions">
+        <a href="#contact" class="btn btn--red">Start My Claim Review <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="tel:+13035550142" class="link-arrow">Or call the storm line <svg class="ico"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 · BEFORE / AFTER ============ -->
+<section class="section compare" id="compare">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Before &amp; After</span>
+      <h2>See the transformation</h2>
+      <p>Drag the handle to compare a hail-damaged roof in Aurora with its finished replacement.</p>
+    </div>
+
+    <div class="compare__box reveal" id="compareBox">
+      <img class="compare__after" src="https://images.unsplash.com/photo-1518736346281-76873166a64a?w=1200&h=700&fit=crop&q=80&auto=format" alt="After: new roof">
+      <div class="compare__before" id="compareBefore">
+        <img src="https://images.unsplash.com/photo-1673645652590-9d21295bf4ac?w=1200&h=700&fit=crop&q=80&auto=format" alt="Before: damaged roof">
+      </div>
+      <div class="compare__handle" id="compareHandle" role="slider" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+        <span class="compare__handle-btn"><svg class="ico" style="transform:rotate(180deg)"><use href="#i-chev"/></svg><svg class="ico"><use href="#i-chev"/></svg></span>
+      </div>
+      <span class="compare__tag compare__tag--before">Before</span>
+      <span class="compare__tag compare__tag--after">After</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 · COST ESTIMATOR ============ -->
+<section class="section estimator" id="estimator">
+  <div class="container estimator__grid">
+    <div class="estimator__intro reveal">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Instant Estimate</span>
+      <h2>Roof cost calculator</h2>
+      <p>Get a ballpark figure in seconds. Final pricing is confirmed after a free on-site inspection.</p>
+      <ul class="estimator__notes">
+        <li><svg class="ico"><use href="#i-check"/></svg> Includes tear-off &amp; disposal</li>
+        <li><svg class="ico"><use href="#i-check"/></svg> Includes underlayment &amp; flashing</li>
+        <li><svg class="ico"><use href="#i-check"/></svg> 25-year workmanship warranty</li>
+      </ul>
+    </div>
+
+    <form class="estimator__form reveal" id="estimatorForm" novalidate>
+      <div class="field">
+        <div class="field__row"><label for="roofArea">Roof area</label><output id="areaOut">2,000 sq ft</output></div>
+        <input type="range" id="roofArea" min="800" max="6000" step="50" value="2000">
+      </div>
+      <div class="field">
+        <label for="roofMaterial">Roofing material</label>
+        <select id="roofMaterial">
+          <option value="4.5">Asphalt shingles (architectural)</option>
+          <option value="9.5">Standing seam metal</option>
+          <option value="12">Clay / concrete tile</option>
+          <option value="18">Natural slate</option>
+          <option value="7">TPO / flat membrane</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Roof pitch</label>
+        <div class="segmented" id="roofPitch" role="radiogroup" aria-label="Roof pitch">
+          <button type="button" data-val="1" class="is-active" role="radio" aria-checked="true">Low</button>
+          <button type="button" data-val="1.12" role="radio" aria-checked="false">Medium</button>
+          <button type="button" data-val="1.28" role="radio" aria-checked="false">Steep</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field__row"><label for="roofStories">Stories</label><output id="storiesOut">2</output></div>
+        <input type="range" id="roofStories" min="1" max="4" step="1" value="2">
+      </div>
+      <div class="estimator__result">
+        <span>Estimated project cost</span>
+        <strong id="estimateOut">$9,000 – $11,000</strong>
+        <small>Based on Denver metro averages, Sept 2026</small>
+      </div>
+      <a href="#contact" class="btn btn--red btn--block">Lock in a Firm Quote <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 12 · FINANCING ============ -->
+<section class="section financing" id="financing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Financing</span>
+      <h2>A new roof for less than your streaming bills</h2>
+      <p>Approved in minutes, no impact on your credit score to check. Slide to see what a monthly payment looks like.</p>
+    </div>
+    <div class="financing__grid">
+      <div class="finance-calc reveal" id="financeCalc">
+        <div class="field">
+          <div class="field__row"><label for="finAmount">Project amount</label><output id="finAmountOut">$14,000</output></div>
+          <input type="range" id="finAmount" min="3000" max="60000" step="500" value="14000">
+        </div>
+        <div class="field">
+          <label>Plan</label>
+          <div class="segmented segmented--4" id="finPlan" role="radiogroup" aria-label="Financing plan">
+            <button type="button" data-months="18" data-apr="0" role="radio" aria-checked="true" class="is-active">18 mo · 0%</button>
+            <button type="button" data-months="60" data-apr="7.99" role="radio" aria-checked="false">5 yr · 7.99%</button>
+            <button type="button" data-months="120" data-apr="9.49" role="radio" aria-checked="false">10 yr · 9.49%</button>
+            <button type="button" data-months="144" data-apr="9.99" role="radio" aria-checked="false">12 yr · 9.99%</button>
+          </div>
+        </div>
+        <div class="finance-calc__result">
+          <div><span>Estimated monthly</span><strong id="finMonthly">$778</strong></div>
+          <div><span>Total interest</span><strong id="finInterest">$0</strong></div>
+        </div>
+        <small class="finance-calc__note">Example only. Subject to credit approval through our lending partners. APR fixed for the life of the loan.</small>
+      </div>
+      <ul class="financing__perks reveal" style="--d:.15s">
+        <li><div class="perk__icon"><svg class="ico"><use href="#i-bolt"/></svg></div><div><strong>Decision in under 5 minutes</strong><span>Apply from your phone while we're on-site.</span></div></li>
+        <li><div class="perk__icon"><svg class="ico"><use href="#i-shield"/></svg></div><div><strong>No prepayment penalties</strong><span>Pay it off early any time, no fees.</span></div></li>
+        <li><div class="perk__icon"><svg class="ico"><use href="#i-search"/></svg></div><div><strong>Soft credit check to prequalify</strong><span>See your options without affecting your score.</span></div></li>
+        <li><div class="perk__icon"><svg class="ico"><use href="#i-users"/></svg></div><div><strong>Deductible-only plans</strong><span>Insurance job? Finance just the deductible.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 · PRICING ============ -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Our Pricing</span>
+      <h2>Simple plans, honest prices</h2>
+      <p>Choose a package or let us tailor one. Every plan includes a free inspection.</p>
+      <div class="toggle" id="priceToggle">
+        <span class="toggle__label is-active" data-side="left">Per Project</span>
+        <button class="toggle__switch" type="button" role="switch" aria-checked="false" aria-label="Toggle pricing period"><span></span></button>
+        <span class="toggle__label" data-side="right">Per Sq. Ft. <em class="toggle__tag">Save 12%</em></span>
+      </div>
+    </div>
+
+    <div class="pricing__grid">
+      <article class="plan reveal" style="--d:0s">
+        <h3>Basic Plan</h3>
+        <div class="plan__price"><sup>$</sup><span class="price" data-project="99" data-sqft="1.5">99</span><small class="price-unit">/Project</small></div>
+        <p>Perfect for small roofing projects and minor leak calls.</p>
+        <ul>
+          <li><svg class="ico"><use href="#i-check"/></svg> Roof inspection</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Minor repairs</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Leak fixing</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Warranty 1 year</li>
+        </ul>
+        <a href="#contact" class="btn btn--outline btn--block">Get Started</a>
+      </article>
+
+      <article class="plan plan--featured reveal" style="--d:.1s">
+        <span class="plan__ribbon">Most Popular</span>
+        <h3>Standard Plan</h3>
+        <div class="plan__price"><sup>$</sup><span class="price" data-project="299" data-sqft="4.5">299</span><small class="price-unit">/Project</small></div>
+        <p>Ideal for regular roofing solutions and partial replacements.</p>
+        <ul>
+          <li><svg class="ico"><use href="#i-check"/></svg> Roof installation</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Roof repair</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Material included</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Warranty 5 years</li>
+        </ul>
+        <a href="#contact" class="btn btn--white btn--block">Get Started</a>
+      </article>
+
+      <article class="plan reveal" style="--d:.2s">
+        <h3>Premium Plan</h3>
+        <div class="plan__price"><sup>$</sup><span class="price" data-project="599" data-sqft="9.5">599</span><small class="price-unit">/Project</small></div>
+        <p>Complete roofing service package with premium materials.</p>
+        <ul>
+          <li><svg class="ico"><use href="#i-check"/></svg> Full roof replacement</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Premium materials</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> 24/7 support</li>
+          <li><svg class="ico"><use href="#i-check"/></svg> Warranty 10 years</li>
+        </ul>
+        <a href="#contact" class="btn btn--outline btn--block">Get Started</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14 · COMPARISON ============ -->
+<section class="section comparison" id="comparison">
+  <div class="container">
+    <div class="section-head section-head--light reveal">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Why Rooftiq</span>
+      <h2>Not all roofers are built the same</h2>
+      <p>Ask any contractor these questions before you sign. Here's how our answers compare.</p>
+    </div>
+    <div class="compare-table reveal">
+      <table>
+        <thead>
+          <tr><th scope="col">What to ask</th><th scope="col" class="is-us"><span class="logo__text">ROOF<span>TIQ</span></span></th><th scope="col">Typical contractor</th><th scope="col">Storm chaser</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Workmanship warranty</th><td class="is-us"><b>25 years</b>, transferable</td><td>1–5 years</td><td>None or unenforceable</td></tr>
+          <tr><th scope="row">Crew</th><td class="is-us"><b>In-house</b>, W-2 employees</td><td>Subcontracted</td><td>Out-of-state day labor</td></tr>
+          <tr><th scope="row">Manufacturer certification</th><td class="is-us"><b>GAF Master Elite</b> (top 2%)</td><td>Sometimes</td><td>Rarely</td></tr>
+          <tr><th scope="row">Local office</th><td class="is-us"><b>Denver</b>, since 1999</td><td>Usually</td><td>P.O. box</td></tr>
+          <tr><th scope="row">Insurance claim support</th><td class="is-us"><b>HAAG-certified</b>, meets adjuster</td><td>Limited</td><td>Pressures you to sign</td></tr>
+          <tr><th scope="row">Itemized written quote</th><td class="is-us"><b>Same day</b>, valid 60 days</td><td>Within a week</td><td>Verbal, "today only"</td></tr>
+          <tr><th scope="row">Clean-up</th><td class="is-us"><b>Magnetic nail sweep</b>, twice</td><td>Basic</td><td>Your problem</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 · PROJECTS GALLERY ============ -->
+<section class="section projects" id="projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Our Projects</span>
+      <h2>Recent work across Colorado</h2>
+      <div class="filters" id="galleryFilters" role="tablist">
+        <button class="is-active" data-filter="all" type="button">All</button>
+        <button data-filter="residential" type="button">Residential</button>
+        <button data-filter="commercial" type="button">Commercial</button>
+        <button data-filter="metal" type="button">Metal</button>
+        <button data-filter="repair" type="button">Repairs</button>
+      </div>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <figure class="gallery__item gallery__item--tall" data-cat="residential" data-full="https://images.unsplash.com/photo-1635424825057-7fb6dcd651ef?w=1200&q=85&auto=format"><img src="https://images.unsplash.com/photo-1635424825057-7fb6dcd651ef?w=600&h=800&fit=crop&q=80&auto=format" alt="Cherry Creek shingle re-roof"><figcaption><span>Residential</span><strong>Cherry Creek Re-Roof</strong></figcaption></figure>
+      <figure class="gallery__item" data-cat="commercial" data-full="https://images.unsplash.com/photo-1602536742225-5d2e14055de5?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1602536742225-5d2e14055de5?w=600&h=450&fit=crop&q=80&auto=format" alt="Warehouse metal roofing"><figcaption><span>Commercial</span><strong>Aurora Logistics Hub</strong></figcaption></figure>
+      <figure class="gallery__item" data-cat="metal" data-full="https://images.unsplash.com/photo-1602193069473-0c78775ec7e1?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1602193069473-0c78775ec7e1?w=600&h=450&fit=crop&q=80&auto=format" alt="Standing seam metal roof on a house"><figcaption><span>Metal</span><strong>Boulder Standing Seam</strong></figcaption></figure>
+      <figure class="gallery__item" data-cat="repair" data-full="https://images.unsplash.com/photo-1635424709870-cdc6e64f0e20?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1635424709870-cdc6e64f0e20?w=600&h=450&fit=crop&q=80&auto=format" alt="Crew repairing hail damage"><figcaption><span>Repair</span><strong>Hail Damage, Littleton</strong></figcaption></figure>
+      <figure class="gallery__item gallery__item--wide" data-cat="residential" data-full="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=450&fit=crop&q=80&auto=format" alt="Modern estate home with new roof"><figcaption><span>Residential</span><strong>Highlands Ranch Estate</strong></figcaption></figure>
+      <figure class="gallery__item" data-cat="commercial" data-full="https://images.unsplash.com/photo-1587061633437-187ac80e8e7a?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1587061633437-187ac80e8e7a?w=600&h=450&fit=crop&q=80&auto=format" alt="Office building metal roof"><figcaption><span>Commercial</span><strong>Tech Center Offices</strong></figcaption></figure>
+      <figure class="gallery__item" data-cat="metal" data-full="https://images.unsplash.com/photo-1759105734106-47594c3eea11?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1759105734106-47594c3eea11?w=600&h=450&fit=crop&q=80&auto=format" alt="Metal barn roof with cupola"><figcaption><span>Metal</span><strong>Evergreen Barn</strong></figcaption></figure>
+      <figure class="gallery__item" data-cat="repair" data-full="https://images.unsplash.com/photo-1643509867448-57001e0c333d?w=1600&q=85&auto=format"><img src="https://images.unsplash.com/photo-1643509867448-57001e0c333d?w=600&h=450&fit=crop&q=80&auto=format" alt="Fastening flashing with a drill"><figcaption><span>Repair</span><strong>Flashing, Golden</strong></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16 · TESTIMONIALS ============ -->
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-head section-head--light reveal">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Testimonials</span>
+      <h2>What homeowners say</h2>
+    </div>
+
+    <div class="carousel reveal" id="carousel">
+      <div class="carousel__track" id="carouselTrack">
+        <article class="review">
+          <svg class="review__quote ico"><use href="#i-quote"/></svg>
+          <div class="stars"><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg></div>
+          <p>"After the May hailstorm we had three quotes. Rooftiq was the only one who walked the roof with a drone and showed us the damage. Done in one day, spotless yard."</p>
+          <footer><img src="https://i.pravatar.cc/80?img=5" alt=""><div><strong>Melissa Ortega</strong><span>Homeowner, Lakewood</span></div></footer>
+        </article>
+        <article class="review">
+          <svg class="review__quote ico"><use href="#i-quote"/></svg>
+          <div class="stars"><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg></div>
+          <p>"They handled our insurance adjuster call for us and the claim was approved in a week. The standing seam roof looks incredible and our energy bill dropped."</p>
+          <footer><img src="https://i.pravatar.cc/80?img=15" alt=""><div><strong>David Chen</strong><span>Homeowner, Boulder</span></div></footer>
+        </article>
+        <article class="review">
+          <svg class="review__quote ico"><use href="#i-quote"/></svg>
+          <div class="stars"><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg></div>
+          <p>"We manage 14 commercial buildings and Rooftiq is now our only roofing vendor. Predictable scheduling, clean invoices, zero call-backs in three years."</p>
+          <footer><img src="https://i.pravatar.cc/80?img=33" alt=""><div><strong>Priya Raman</strong><span>Property Manager, Denver</span></div></footer>
+        </article>
+        <article class="review">
+          <svg class="review__quote ico"><use href="#i-quote"/></svg>
+          <div class="stars"><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg></div>
+          <p>"Leak at 9pm on a Sunday. They had a tarp on by 11 and the permanent fix done Tuesday. That's the kind of service you remember."</p>
+          <footer><img src="https://i.pravatar.cc/80?img=60" alt=""><div><strong>Tom Bradley</strong><span>Homeowner, Arvada</span></div></footer>
+        </article>
+      </div>
+      <div class="carousel__nav">
+        <button type="button" id="carPrev" aria-label="Previous review"><svg class="ico" style="transform:rotate(180deg)"><use href="#i-chev"/></svg></button>
+        <div class="carousel__dots" id="carDots"></div>
+        <button type="button" id="carNext" aria-label="Next review"><svg class="ico"><use href="#i-chev"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17 · SERVICE AREAS ============ -->
+<section class="section areas" id="areas">
+  <div class="container areas__grid">
+    <div class="areas__content reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Service Areas</span>
+      <h2>Serving the entire Front Range</h2>
+      <p>Two crews based in Denver and one in Boulder mean we can be on most roofs within 48 hours, and within 2 hours for emergencies.</p>
+      <ul class="areas__list" id="areasList">
+        <li data-city="denver" class="is-active"><strong>Denver</strong><span>HQ · 2-hr emergency</span></li>
+        <li data-city="aurora"><strong>Aurora</strong><span>2-hr emergency</span></li>
+        <li data-city="lakewood"><strong>Lakewood</strong><span>2-hr emergency</span></li>
+        <li data-city="boulder"><strong>Boulder</strong><span>Crew base</span></li>
+        <li data-city="arvada"><strong>Arvada</strong><span>Same-day</span></li>
+        <li data-city="littleton"><strong>Littleton</strong><span>Same-day</span></li>
+        <li data-city="golden"><strong>Golden</strong><span>Same-day</span></li>
+        <li data-city="parker"><strong>Parker</strong><span>48-hr</span></li>
+      </ul>
+      <p class="areas__note">Not on the list? We also cover Castle Rock, Longmont, Broomfield and Evergreen. <a href="#contact">Ask us</a>.</p>
+    </div>
+    <div class="areas__map reveal" style="--d:.15s">
+      <svg viewBox="0 0 560 520" id="areasMap" aria-label="Map of Rooftiq service areas around Denver">
+        <defs>
+          <radialGradient id="mapGlow"><stop offset="0" stop-color="#d8232a" stop-opacity=".35"/><stop offset="1" stop-color="#d8232a" stop-opacity="0"/></radialGradient>
+          <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#dcd7cf" stroke-width="1"/></pattern>
+        </defs>
+        <rect width="560" height="520" rx="16" fill="#efece6"/>
+        <rect width="560" height="520" rx="16" fill="url(#mapGrid)"/>
+        <path d="M0 140 L40 90 L70 130 L100 70 L130 120 L160 80 L190 140 L0 140Z M0 300 L30 250 L60 290 L90 230 L120 280 L150 250 L180 300Z M0 460 L40 400 L80 450 L110 390 L140 440 L170 410 L200 460Z" fill="#d9d4cb"/>
+        <path d="M120 0 C 240 120, 260 300, 200 520" fill="none" stroke="#cfc9bf" stroke-width="8"/>
+        <path d="M0 260 L560 250" fill="none" stroke="#cfc9bf" stroke-width="8"/>
+        <path d="M300 40 L300 520" fill="none" stroke="#cfc9bf" stroke-width="6"/>
+        <path d="M60 470 L520 120" fill="none" stroke="#cfc9bf" stroke-width="4" stroke-dasharray="10 8"/>
+        <circle cx="300" cy="270" r="170" fill="url(#mapGlow)"/>
+        <circle cx="300" cy="270" r="120" fill="none" stroke="#d8232a" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 6" class="areas__radius"/>
+        <g class="pin" data-city="boulder" transform="translate(150,110)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="-16">Boulder</text></g>
+        <g class="pin" data-city="arvada" transform="translate(230,215)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="-16">Arvada</text></g>
+        <g class="pin" data-city="golden" transform="translate(160,260)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="-16">Golden</text></g>
+        <g class="pin pin--hq is-active" data-city="denver" transform="translate(300,270)"><circle r="26" class="pin__halo"/><circle r="11" class="pin__dot"/><text y="-22">Denver HQ</text></g>
+        <g class="pin" data-city="lakewood" transform="translate(220,300)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="28">Lakewood</text></g>
+        <g class="pin" data-city="aurora" transform="translate(400,285)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="-16">Aurora</text></g>
+        <g class="pin" data-city="littleton" transform="translate(270,390)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="28">Littleton</text></g>
+        <g class="pin" data-city="parker" transform="translate(420,430)"><circle r="18" class="pin__halo"/><circle r="8" class="pin__dot"/><text y="28">Parker</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18 · TEAM ============ -->
+<section class="section team" id="team">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Our Team</span>
+      <h2>Meet the crew leads</h2>
+      <p>Certified, background-checked, and on your roof personally — not subcontracted out.</p>
+    </div>
+    <div class="team__grid">
+      <article class="member reveal" style="--d:0s">
+        <div class="member__img"><img src="https://images.unsplash.com/photo-1646227655685-a530813759b3?w=400&h=500&fit=crop&crop=faces&q=80&auto=format" alt="Marcus Reed"><div class="member__social"><a href="#" aria-label="LinkedIn"><svg class="ico"><use href="#i-li"/></svg></a><a href="#" aria-label="Email"><svg class="ico"><use href="#i-mail"/></svg></a></div></div>
+        <h3>Marcus Reed</h3><span>Founder &amp; Master Roofer</span>
+      </article>
+      <article class="member reveal" style="--d:.1s">
+        <div class="member__img"><img src="https://images.unsplash.com/photo-1575282366139-d605e098a825?w=400&h=500&fit=crop&crop=faces&q=80&auto=format" alt="Elena Vasquez"><div class="member__social"><a href="#" aria-label="LinkedIn"><svg class="ico"><use href="#i-li"/></svg></a><a href="#" aria-label="Email"><svg class="ico"><use href="#i-mail"/></svg></a></div></div>
+        <h3>Elena Vasquez</h3><span>Project Manager</span>
+      </article>
+      <article class="member reveal" style="--d:.2s">
+        <div class="member__img"><img src="https://images.unsplash.com/photo-1787672357797-f5fa35bb0d18?w=400&h=500&fit=crop&crop=faces&q=80&auto=format" alt="Jamal Whitfield"><div class="member__social"><a href="#" aria-label="LinkedIn"><svg class="ico"><use href="#i-li"/></svg></a><a href="#" aria-label="Email"><svg class="ico"><use href="#i-mail"/></svg></a></div></div>
+        <h3>Jamal Whitfield</h3><span>Commercial Crew Lead</span>
+      </article>
+      <article class="member reveal" style="--d:.3s">
+        <div class="member__img"><img src="https://images.unsplash.com/photo-1725811641344-9bca74828fc0?w=400&h=500&fit=crop&crop=faces&q=80&auto=format" alt="Sarah Kim"><div class="member__social"><a href="#" aria-label="LinkedIn"><svg class="ico"><use href="#i-li"/></svg></a><a href="#" aria-label="Email"><svg class="ico"><use href="#i-mail"/></svg></a></div></div>
+        <h3>Sarah Kim</h3><span>Inspection Specialist</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 19 · GUARANTEE ============ -->
+<section class="section guarantee" id="guarantee">
+  <div class="container guarantee__inner">
+    <div class="guarantee__seal reveal" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <defs><path id="sealArc" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+        <circle cx="100" cy="100" r="96" fill="#d8232a"/>
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4"/>
+        <text font-family="Barlow Condensed, sans-serif" font-size="13.5" font-weight="700" fill="#fff" letter-spacing="2.5"><textPath href="#sealArc">ROOFTIQ IRONCLAD GUARANTEE · WORKMANSHIP · MATERIALS · CLEAN-UP ·</textPath></text>
+        <text x="100" y="92" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="46" font-weight="800" fill="#fff">25</text>
+        <text x="100" y="116" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="15" font-weight="700" fill="#fff" letter-spacing="2">YEAR WARRANTY</text>
+        <text x="100" y="136" text-anchor="middle" font-family="Barlow, sans-serif" font-size="9" fill="#fff" opacity=".8">TRANSFERABLE · SINCE 1999</text>
+      </svg>
+    </div>
+    <div class="guarantee__content reveal" style="--d:.15s">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Our Promise</span>
+      <h2>The Rooftiq Ironclad Guarantee</h2>
+      <p>If we install it, we stand behind it. In writing, for 25 years, and it transfers to the next owner of your home.</p>
+      <div class="guarantee__grid">
+        <div><svg class="ico"><use href="#i-shield"/></svg><strong>Leak-free or we fix it free</strong><span>Any installation-related leak, repaired at no charge, for the life of the warranty.</span></div>
+        <div><svg class="ico"><use href="#i-clock"/></svg><strong>On-time or $100/day back</strong><span>If we miss the agreed completion date for reasons within our control, you get paid.</span></div>
+        <div><svg class="ico"><use href="#i-check"/></svg><strong>Price locked at signing</strong><span>Your quote is your price. Material increases are on us, not you.</span></div>
+        <div><svg class="ico"><use href="#i-hammer"/></svg><strong>Spotless clean-up</strong><span>Two magnetic sweeps and a final walkthrough. Find a nail, we come back.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 20 · FAQ ============ -->
+<section class="section faq" id="faq">
+  <div class="container faq__grid">
+    <div class="faq__intro reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>FAQ</span>
+      <h2>Questions homeowners ask us</h2>
+      <p>Can't find your answer? Call <a href="tel:+13035550142">(303) 555-0142</a> and a real roofer will pick up.</p>
+      <div class="faq__card">
+        <svg class="ico"><use href="#i-bolt"/></svg>
+        <strong>Storm just hit?</strong>
+        <span>Document damage with photos, don't climb up, and call us. Emergency tarping is free with any repair.</span>
+      </div>
+    </div>
+
+    <div class="accordion reveal" id="accordion">
+      <details open>
+        <summary>How long does a roof replacement take?<span class="accordion__icon"></span></summary>
+        <div class="accordion__body"><p>Most residential re-roofs are finished in 1–2 days. Larger or steep roofs, tile and slate can take 3–5 days. We give you a firm schedule before work starts.</p></div>
+      </details>
+      <details>
+        <summary>Will my insurance cover storm damage?<span class="accordion__icon"></span></summary>
+        <div class="accordion__body"><p>Usually, yes. Hail and wind damage are covered by most homeowner policies. We provide a HAAG-certified inspection report and meet your adjuster on-site to make the claim straightforward.</p></div>
+      </details>
+      <details>
+        <summary>How do I know if I need a repair or full replacement?<span class="accordion__icon"></span></summary>
+        <div class="accordion__body"><p>If damage covers under 30% of the roof and the shingles are less than 15 years old, a repair usually makes sense. Beyond that, replacement is more cost-effective. Our inspection tells you honestly which one applies.</p></div>
+      </details>
+      <details>
+        <summary>What does the 25-year warranty cover?<span class="accordion__icon"></span></summary>
+        <div class="accordion__body"><p>Our workmanship warranty covers any installation defect for 25 years, transferable once to a new owner. Manufacturer material warranties (up to lifetime) are registered on your behalf.</p></div>
+      </details>
+      <details>
+        <summary>Do you offer financing?<span class="accordion__icon"></span></summary>
+        <div class="accordion__body"><p>Yes. We partner with two lenders to offer 0% APR for 18 months on approved credit, or longer terms up to 12 years. Applications take about five minutes.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 21 · BLOG ============ -->
+<section class="section blog" id="blog">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="eyebrow__line"></span>Latest News</span>
+      <h2>Roofing tips &amp; insights</h2>
+    </div>
+    <div class="blog__grid">
+      <article class="post reveal" style="--d:0s">
+        <a href="#" class="post__img"><img src="https://images.unsplash.com/photo-1710139323182-69622cad5c3b?w=640&h=420&fit=crop&q=80&auto=format" alt="Row of homes with shingle roofs"><span class="post__date"><strong>02</strong>Sep</span></a>
+        <div class="post__body">
+          <span class="post__cat">Storm Damage</span>
+          <h3><a href="#">5 signs of hail damage you can spot from the ground</a></h3>
+          <p>Dented gutters, granules in downspouts, and the other clues that mean it's time for an inspection.</p>
+          <a href="#" class="link-arrow">Read Article <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="post reveal" style="--d:.12s">
+        <a href="#" class="post__img"><img src="https://images.unsplash.com/photo-1586982599726-11708daaceca?w=640&h=420&fit=crop&q=80&auto=format" alt="House with a metal roof"><span class="post__date"><strong>21</strong>Aug</span></a>
+        <div class="post__body">
+          <span class="post__cat">Materials</span>
+          <h3><a href="#">Metal vs. asphalt: which roof pays off in Colorado?</a></h3>
+          <p>We compare 30-year cost, snow load, hail rating and resale value for the Front Range climate.</p>
+          <a href="#" class="link-arrow">Read Article <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="post reveal" style="--d:.24s">
+        <a href="#" class="post__img"><img src="https://images.unsplash.com/photo-1519115226133-94046df0e272?w=640&h=420&fit=crop&q=80&auto=format" alt="House roof among autumn trees"><span class="post__date"><strong>08</strong>Aug</span></a>
+        <div class="post__body">
+          <span class="post__cat">Maintenance</span>
+          <h3><a href="#">The fall roof checklist every homeowner should follow</a></h3>
+          <p>Ten minutes of prevention in October saves thousands in February. Here's what to check.</p>
+          <a href="#" class="link-arrow">Read Article <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 22 · CONTACT / QUOTE ============ -->
+<section class="section contact" id="contact">
+  <div class="container contact__grid">
+    <div class="contact__info reveal">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Get a Quote</span>
+      <h2>Let's talk about your roof</h2>
+      <p>Fill out the form and we'll call you back within one business hour. Or reach us directly:</p>
+      <ul class="contact__list">
+        <li><span class="contact__ico"><svg class="ico"><use href="#i-phone"/></svg></span><div><small>Phone</small><a href="tel:+13035550142">(303) 555-0142</a></div></li>
+        <li><span class="contact__ico"><svg class="ico"><use href="#i-mail"/></svg></span><div><small>Email</small><a href="mailto:hello@rooftiq.com">hello@rooftiq.com</a></div></li>
+        <li><span class="contact__ico"><svg class="ico"><use href="#i-pin"/></svg></span><div><small>Office</small><span>1420 Ridgeline Ave, Denver, CO 80203</span></div></li>
+        <li><span class="contact__ico"><svg class="ico"><use href="#i-clock"/></svg></span><div><small>Hours</small><span>Mon–Sat 7am–6pm · Emergency 24/7</span></div></li>
+      </ul>
+      <div class="contact__map" aria-hidden="true">
+        <svg viewBox="0 0 400 220" preserveAspectRatio="none">
+          <rect width="400" height="220" fill="#1a2028"/>
+          <g stroke="#2c343f" stroke-width="1.5">
+            <path d="M0 60H400M0 120H400M0 180H400M60 0V220M140 0V220M220 0V220M300 0V220"/>
+            <path d="M0 30 L400 200" stroke-width="6" stroke="#252c36"/>
+            <path d="M100 0 L340 220" stroke-width="10" stroke="#252c36"/>
+          </g>
+          <circle cx="220" cy="120" r="26" fill="#d8232a" opacity=".2"><animate attributeName="r" values="18;34;18" dur="2.4s" repeatCount="indefinite"/></circle>
+          <circle cx="220" cy="120" r="8" fill="#d8232a"/>
+          <text x="236" y="112" fill="#f6f4f0" font-family="Barlow, sans-serif" font-size="13" font-weight="600">Rooftiq HQ</text>
+        </svg>
+      </div>
+    </div>
+
+    <form class="quote-form reveal" id="quoteForm" novalidate>
+      <h3>Request your free quote</h3>
+      <div class="quote-form__row">
+        <div class="field"><label for="qName">Full name</label><input type="text" id="qName" name="name" placeholder="Jane Smith" required><span class="field__err">Please enter your name.</span></div>
+        <div class="field"><label for="qPhone">Phone</label><input type="tel" id="qPhone" name="phone" placeholder="(303) 555-0100" required><span class="field__err">Please enter a valid phone number.</span></div>
+      </div>
+      <div class="quote-form__row">
+        <div class="field"><label for="qEmail">Email</label><input type="email" id="qEmail" name="email" placeholder="jane@email.com" required><span class="field__err">Please enter a valid email.</span></div>
+        <div class="field"><label for="qService">Service needed</label>
+          <select id="qService" name="service" required>
+            <option value="">Select a service</option>
+            <option>Roof Installation</option><option>Roof Repair</option><option>Roof Inspection</option><option>Roof Replacement</option><option>Gutters &amp; Drainage</option><option>Storm &amp; Hail Damage</option>
+          </select><span class="field__err">Please choose a service.</span>
+        </div>
+      </div>
+      <div class="field"><label for="qMsg">Tell us about your roof</label><textarea id="qMsg" name="message" rows="4" placeholder="Age of roof, visible damage, best time to visit…"></textarea></div>
+      <label class="checkbox"><input type="checkbox" id="qUrgent" name="urgent"><span></span> This is an emergency (active leak or storm damage)</label>
+      <button type="submit" class="btn btn--red btn--block btn--lg" id="quoteSubmit">Send My Request <svg class="ico"><use href="#i-arrow"/></svg></button>
+      <small class="quote-form__note">No spam, ever. We reply within one business hour.</small>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ 23 · FOOTER ============ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer__cta reveal">
+      <div>
+        <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>Ready When You Are</span>
+        <h2>Build your roofing project today</h2>
+      </div>
+      <div class="footer__cta-actions">
+        <a href="#contact" class="btn btn--red btn--lg">Get a Free Quote <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a href="tel:+13035550142" class="btn btn--ghost btn--lg"><svg class="ico"><use href="#i-phone"/></svg> (303) 555-0142</a>
+      </div>
+    </div>
+
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="#hero" class="logo logo--light">
+          <svg class="logo__mark" viewBox="0 0 48 40" aria-hidden="true">
+            <path d="M4 24 22 6l18 18" fill="none" stroke="#d8232a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 36 30 22l14 14" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M31 8h6v9" fill="none" stroke="#d8232a" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span class="logo__text">ROOF<span>TIQ</span></span>
+        </a>
+        <p>Family-owned, Denver-based roofing contractor serving the Front Range since 1999. Licensed CO #RC-204871.</p>
+        <div class="socials socials--lg">
+          <a href="#" aria-label="Facebook"><svg class="ico"><use href="#i-fb"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg class="ico"><use href="#i-ig"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg class="ico"><use href="#i-yt"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg class="ico"><use href="#i-li"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul><li><a href="#services">Roof Installation</a></li><li><a href="#services">Roof Repair</a></li><li><a href="#services">Roof Inspection</a></li><li><a href="#services">Roof Replacement</a></li><li><a href="#services">Gutters &amp; Drainage</a></li><li><a href="#services">Storm Damage</a></li></ul>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <ul><li><a href="#about">About Us</a></li><li><a href="#projects">Projects</a></li><li><a href="#team">Our Team</a></li><li><a href="#blog">Blog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Careers</a></li></ul>
+      </div>
+      <div class="footer__col footer__col--wide">
+        <h4>Get roofing tips</h4>
+        <p>Seasonal maintenance reminders and storm alerts for your area. One email a month.</p>
+        <form class="newsletter" id="newsletterForm" novalidate>
+          <input type="email" id="nlEmail" placeholder="Your email address" aria-label="Email address" required>
+          <button type="submit" class="btn btn--red" aria-label="Subscribe"><svg class="ico"><use href="#i-arrow"/></svg></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 Rooftiq Roofing Co. All rights reserved.</span>
+      <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Sitemap</a></li></ul>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating elements -->
+<button class="back-top" id="backTop" aria-label="Back to top"><svg class="ico"><use href="#i-up"/></svg></button>
+
+<div class="sticky-cta" id="stickyCta">
+  <a href="tel:+13035550142" class="sticky-cta__call"><svg class="ico"><use href="#i-phone"/></svg> Call Now</a>
+  <a href="#contact" class="sticky-cta__quote">Free Inspection <svg class="ico"><use href="#i-arrow"/></svg></a>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project photo" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Previous"><svg class="ico" style="transform:rotate(180deg)"><use href="#i-chev"/></svg></button>
+  <figure class="lightbox__fig"><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Next"><svg class="ico"><use href="#i-chev"/></svg></button>
+  <button class="modal__close" data-close aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
