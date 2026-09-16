@@ -1,6 +1,6 @@
 # Rooftiq — Roofing Company Website
 
-A 23-section, single-page roofing website built with plain HTML, CSS and JavaScript. No frameworks, no build tools required.
+A 24-section, single-page roofing website built with plain HTML, CSS and JavaScript. No frameworks, no build tools required.
 
 ## Open it
 
@@ -24,7 +24,17 @@ Or just deploy the `src/` folder as-is; it works on its own too.
 
 ## Sections
 
-00 Preloader · 01 Header (inside the hero) · 02 Hero (video, rotating Anton headline, nav) · 03 Trust marquee · 04 VSL (video sales letter) · 05 Services · 06 Why choose us + stats · 07 About · 08 Process · 09 Insurance claims · 10 Before/After slider · 11 Cost estimator · 12 Financing calculator · 13 Pricing · 14 Comparison table · 15 Projects gallery + lightbox · 16 Testimonials carousel · 17 Service-area map · 18 Team · 19 Guarantee · 20 FAQ · 21 Blog · 22 Contact / quote form · 23 Footer
+00 Preloader · 01 Header (inside the hero) · 02 Hero (video, rotating Anton headline, nav) · 03 Trust marquee · 04 VSL (video sales letter) · 05 Services · 06 Why choose us + stats · 07 About · 08 Process · 09 Flythrough (scroll-scrubbed video) · 10 Insurance claims · 11 Before/After slider · 12 Cost estimator · 13 Financing calculator · 14 Pricing · 15 Comparison table · 16 Projects gallery + lightbox · 17 Testimonials carousel · 18 Service-area map · 19 Team · 20 Guarantee · 21 FAQ · 22 Blog · 23 Contact / quote form · 24 Footer
+
+## How the scroll-scrub section works
+
+Section 09 pins a video and advances it with the scroll bar. Three parts:
+
+1. A tall section (`--runway`, 420vh) that exists purely as scroll distance.
+2. A `position: sticky` stage inside it that parks on screen while the runway passes.
+3. JS that maps scroll progress to `video.currentTime`.
+
+Both the HTML block and the "Scroll-scrub flythrough" block in `main.js` are commented line by line. To retime it, change `--runway` in `style.css` — taller means slower. To use your own footage, swap the `<source src>`; anything under about 30 seconds and well keyframed scrubs smoothly.
 
 ## Things to replace before launch
 

@@ -123,6 +123,80 @@
 
   function bump(el) { el.classList.remove('is-bump'); void el.offsetWidth; el.classList.add('is-bump'); }
 
+  /* ---------- Scroll-scrub flythrough ----------
+     Turns the scroll bar into the video's playhead.
+
+     progress()  how far through the tall runway we are, clamped 0..1.
+                 -rect.top is how far its top has passed the viewport top;
+                 dividing by (height - one screen) makes that a fraction,
+                 because the last screenful is the sticky stage sitting still.
+
+     render()    eases 'shown' toward 'target' instead of jumping to it.
+                 Seeking a video is expensive, and raw scroll values are
+                 spiky, so a 12% step per frame smooths the motion and cuts
+                 the number of seeks. Below a hair's width of difference we
+                 stop the loop entirely rather than burn frames forever.
+
+     Everything visual reads from the --p custom property, so the rail and
+     the scroll hint are pure CSS. JS sets one number.
+  */
+  const scrubEl = $('#scrub');
+  if (scrubEl) {
+    const video = $('#scrubVideo');
+    const caps = $$('.scrub__cap', scrubEl);
+    let target = 0, shown = 0, raf = null, metaReady = false;
+
+    const giveUp = () => scrubEl.classList.add('is-static');
+
+    function progress() {
+      const rect = scrubEl.getBoundingClientRect();
+      const travel = scrubEl.offsetHeight - window.innerHeight;
+      if (travel <= 0) return 0;
+      return Math.min(1, Math.max(0, -rect.top / travel));
+    }
+
+    function render() {
+      shown += (target - shown) * 0.12;
+      scrubEl.style.setProperty('--p', shown.toFixed(4));
+
+      if (metaReady && video.duration) {
+        // stop a touch short of the end: the very last frame often fails to decode
+        const t = shown * (video.duration - 0.06);
+        if (Math.abs(video.currentTime - t) > 0.01) {
+          try { video.currentTime = t; } catch (err) { giveUp(); }
+        }
+      }
+
+      const i = Math.min(caps.length - 1, Math.floor(shown * caps.length));
+      caps.forEach((c, ci) => c.classList.toggle('is-on', ci === i));
+
+      raf = Math.abs(target - shown) > 0.0004 ? requestAnimationFrame(render) : null;
+    }
+
+    function onScrubScroll() {
+      target = progress();
+      if (!raf) raf = requestAnimationFrame(render);
+    }
+
+    if (reduceMotion) {
+      giveUp();
+    } else {
+      video.pause();
+      const armScrub = () => { metaReady = true; onScrubScroll(); };
+      // The hero loads this same clip, so on a warm cache the metadata is
+      // already here and 'loadedmetadata' has fired before this line runs.
+      // Listening alone would wait forever for an event that is in the past.
+      if (video.readyState >= 1) armScrub();
+      video.addEventListener('loadedmetadata', armScrub);
+      video.addEventListener('error', giveUp);
+      // a video that never buffers would leave a blank pinned screen
+      setTimeout(() => { if (!metaReady) giveUp(); }, 8000);
+      window.addEventListener('scroll', onScrubScroll, { passive: true });
+      window.addEventListener('resize', onScrubScroll);
+      onScrubScroll();
+    }
+  }
+
   /* ---------- Cost estimator ---------- */
   const est = $('#estimatorForm');
   if (est) {

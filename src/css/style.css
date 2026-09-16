@@ -293,7 +293,62 @@ input, select, textarea { font: inherit; }
 .step p { color: rgba(255,255,255,.62); font-size: .95rem; max-width: 30ch; }
 
 /* =========================================================
-   09 · INSURANCE CLAIMS
+   09 · THE FLYTHROUGH (scroll-scrubbed video)
+   Runway + sticky stage. The JS only sets video.currentTime
+   and one --p custom property; everything else is CSS.
+   ========================================================= */
+.scrub { --runway: 420vh; position: relative; height: var(--runway); background: var(--ink); }
+.scrub__stage { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; display: flex; align-items: flex-end; }
+.scrub__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(.9) saturate(1.05); }
+.scrub__shade { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(17,20,24,.92) 0%, rgba(17,20,24,.35) 45%, rgba(17,20,24,.15) 70%, rgba(17,20,24,.6) 100%),
+    linear-gradient(to right, rgba(17,20,24,.75) 0%, transparent 55%);
+}
+.scrub__inner { position: relative; z-index: 2; width: min(100% - 40px, var(--container)); margin-inline: auto; padding-bottom: clamp(70px, 12vh, 120px); color: var(--white); display: flex; flex-direction: column; gap: 14px; }
+.scrub__title { font-family: var(--font-heavy); font-weight: 400; font-size: clamp(2.4rem, 5.6vw, 5rem); line-height: .95; text-transform: uppercase; letter-spacing: -.01em; color: var(--white); text-shadow: 0 3px 26px rgba(0,0,0,.55); }
+
+/* the four captions share one cell; only .is-on is visible */
+.scrub__caps { position: relative; display: grid; margin-top: 10px; min-height: 190px; }
+.scrub__cap { grid-area: 1/1; max-width: 46ch; display: flex; flex-direction: column; gap: 6px;
+  opacity: 0; transform: translateY(22px); filter: blur(6px); pointer-events: none;
+  transition: opacity .5s var(--ease-out), transform .6s var(--ease-out), filter .5s var(--ease-out); }
+.scrub__cap.is-on { opacity: 1; transform: none; filter: blur(0); pointer-events: auto; }
+.scrub__num { font-family: var(--font-display); font-weight: 800; font-size: 1rem; letter-spacing: .2em; color: var(--red); }
+.scrub__cap strong { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 2.8vw, 2.4rem); text-transform: uppercase; line-height: 1; }
+.scrub__cap p { color: rgba(255,255,255,.78); font-size: 1.02rem; line-height: 1.6; }
+
+/* progress rail: scaleX is driven by --p (0 to 1) */
+.scrub__rail { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.14); z-index: 3; }
+.scrub__bar { display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--red), #ff6a70); }
+
+.scrub__hint { position: absolute; right: clamp(18px, 4vw, 52px); bottom: 28px; z-index: 3; display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 700; font-size: .85rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.7);
+  opacity: calc(1 - var(--p, 0) * 12); transition: opacity .3s; }
+.scrub__hint i { display: block; width: 34px; height: 2px; background: var(--red); animation: scrubNudge 1.6s ease-in-out infinite; }
+@keyframes scrubNudge { 0%,100% { transform: translateX(0); opacity: 1; } 50% { transform: translateX(8px); opacity: .4; } }
+
+/* fallback: no scrubbing, so unpin and let the captions read as a list */
+.scrub.is-static { height: auto; }
+.scrub.is-static .scrub__stage { position: static; height: auto; padding-block: clamp(70px, 9vw, 120px); }
+.scrub.is-static .scrub__video { position: absolute; }
+.scrub.is-static .scrub__caps { display: flex; flex-direction: column; gap: 30px; min-height: 0; }
+.scrub.is-static .scrub__cap { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+.scrub.is-static .scrub__rail, .scrub.is-static .scrub__hint { display: none; }
+
+@media (max-width: 1024px) {
+  /* the sticky call bar owns the bottom edge below this width */
+  .scrub__rail { bottom: 74px; }
+}
+@media (max-width: 760px) {
+  .scrub { --runway: 340vh; }
+  .scrub__caps { min-height: 230px; }
+  .scrub__hint { display: none; }
+  .scrub__shade { background: linear-gradient(to top, rgba(17,20,24,.94) 0%, rgba(17,20,24,.45) 55%, rgba(17,20,24,.5) 100%); }
+}
+
+/* =========================================================
+   10 · INSURANCE CLAIMS
    ========================================================= */
 .claims { background: var(--white); }
 .claims__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: center; }
@@ -316,7 +371,7 @@ input, select, textarea { font: inherit; }
 .claims__actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 6px; }
 
 /* =========================================================
-   10 · BEFORE / AFTER
+   11 · BEFORE / AFTER
    ========================================================= */
 .compare { background: var(--paper); }
 .compare__box { position: relative; width: min(100%, 1000px); margin: 0 auto; aspect-ratio: 12/7; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); user-select: none; touch-action: none; cursor: ew-resize; }
@@ -332,7 +387,7 @@ input, select, textarea { font: inherit; }
 .compare__tag--after { right: 18px; background: var(--red); }
 
 /* =========================================================
-   11 · ESTIMATOR
+   12 · ESTIMATOR
    ========================================================= */
 .estimator { background: var(--ink); color: var(--white); overflow: hidden; }
 .estimator::before { content: ""; position: absolute; right: -10%; top: -20%; width: 55%; height: 140%; background: radial-gradient(circle, rgba(216,35,42,.18), transparent 60%); pointer-events: none; }
@@ -369,7 +424,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .estimator__result small { color: var(--slate); font-size: .8rem; }
 
 /* =========================================================
-   12 · FINANCING
+   13 · FINANCING
    ========================================================= */
 .financing { background: var(--paper); }
 .financing__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: start; }
@@ -390,7 +445,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .financing__perks span { color: var(--slate); font-size: .92rem; }
 
 /* =========================================================
-   13 · PRICING
+   14 · PRICING
    ========================================================= */
 .pricing { background: var(--paper); }
 .toggle { display: inline-flex; align-items: center; gap: 14px; margin-top: 8px; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
@@ -424,7 +479,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .plan--featured::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(160deg, rgba(216,35,42,.22), transparent 45%); pointer-events: none; }
 
 /* =========================================================
-   14 · COMPARISON
+   15 · COMPARISON
    ========================================================= */
 .comparison { background: var(--steel); color: var(--white); }
 .compare-table { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--line-dark); background: var(--ink); }
@@ -444,7 +499,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .compare-table tbody tr:last-child th, .compare-table tbody tr:last-child td { border-bottom: 0; }
 
 /* =========================================================
-   15 · PROJECTS GALLERY
+   16 · PROJECTS GALLERY
    ========================================================= */
 .projects { background: var(--white); }
 .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
@@ -466,7 +521,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 @keyframes galleryIn { from { opacity: 0; transform: scale(.92); } }
 
 /* =========================================================
-   16 · TESTIMONIALS
+   17 · TESTIMONIALS
    ========================================================= */
 .testimonials { background: var(--steel); color: var(--white); overflow: hidden; }
 .testimonials::before { content: ""; position: absolute; left: -10%; bottom: -30%; width: 50%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(216,35,42,.2), transparent 65%); pointer-events: none; }
@@ -490,7 +545,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .carousel__dots button.is-active { width: 28px; background: var(--red); }
 
 /* =========================================================
-   17 · SERVICE AREAS
+   18 · SERVICE AREAS
    ========================================================= */
 .areas { background: var(--white); }
 .areas__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; align-items: center; }
@@ -518,7 +573,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .pin:nth-child(odd) .pin__halo { animation-delay: -1.2s; }
 
 /* =========================================================
-   18 · TEAM
+   19 · TEAM
    ========================================================= */
 .team { background: var(--paper); }
 .team__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
@@ -536,7 +591,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .member > span { color: var(--slate); font-size: .9rem; }
 
 /* =========================================================
-   19 · GUARANTEE
+   20 · GUARANTEE
    ========================================================= */
 .guarantee { background: var(--ink); color: var(--white); overflow: hidden; }
 .guarantee::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 60px, rgba(216,35,42,.05) 60px 61px); pointer-events: none; }
@@ -556,7 +611,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .guarantee__grid span { color: rgba(255,255,255,.62); font-size: .93rem; }
 
 /* =========================================================
-   20 · FAQ
+   21 · FAQ
    ========================================================= */
 .faq { background: var(--white); }
 .faq__grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 60px; align-items: start; }
@@ -582,7 +637,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 @keyframes fadeDown { from { opacity: 0; transform: translateY(-6px); } }
 
 /* =========================================================
-   21 · BLOG
+   22 · BLOG
    ========================================================= */
 .blog { background: var(--paper); }
 .blog__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
@@ -602,7 +657,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .post .link-arrow { margin-top: 6px; }
 
 /* =========================================================
-   22 · CONTACT
+   23 · CONTACT
    ========================================================= */
 .contact { background: var(--ink); color: var(--white); }
 .contact::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 100px; background: var(--paper); clip-path: polygon(0 0, 100% 0, 0 100%); }
@@ -637,7 +692,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .quote-form__note { text-align: center; color: var(--slate); font-size: .82rem; }
 
 /* =========================================================
-   23 · FOOTER
+   24 · FOOTER
    ========================================================= */
 .footer { background: var(--ink-2); color: rgba(255,255,255,.7); padding-top: 0; }
 .footer__cta { display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; padding: 50px 0; border-bottom: 1px solid var(--line-dark); }

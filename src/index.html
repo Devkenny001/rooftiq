@@ -802,7 +802,74 @@
   </div>
 </section>
 
-<!-- ============ 09 · INSURANCE CLAIMS ============ -->
+<!-- ══════════════════════════════════════════════════════════════════
+  09 · THE FLYTHROUGH  (scroll-scrubbed video)
+
+  THE WHOLE TECHNIQUE, IN THREE MOVES:
+
+  1. RUNWAY — the <section> is deliberately far taller than the screen
+     (--runway, 420vh). That extra height draws nothing. It exists only
+     to give the reader scroll distance to spend.
+
+  2. PIN — .scrub__stage inside it is position:sticky with a viewport-
+     tall height, so it parks on screen and stays put while the runway
+     scrolls past behind it. That is the entire "pinning" trick. No
+     library. Two CSS lines.
+
+  3. SCRUB — JavaScript converts "how far through the runway are we"
+     into a number from 0 to 1, then sets video.currentTime to that
+     fraction of the clip's duration. Scroll down and the footage runs
+     forward; scroll up and it rewinds. The scroll bar becomes the
+     playhead. See "Scroll-scrub flythrough" in js/main.js.
+
+  WHY IT COSTS NOTHING: this is the same clip the hero already loads, so
+  the browser serves it from cache. No new asset, no generation, no API.
+
+  IF SCRUBBING IS NOT POSSIBLE (reduced-motion preference, or the video
+  fails to load) the section adds .is-static: the runway collapses, the
+  stage unpins, and all four captions simply stack and read as a list.
+══════════════════════════════════════════════════════════════════ -->
+<section class="scrub" id="scrub" aria-label="How a Rooftiq roof goes on">
+  <div class="scrub__stage" id="scrubStage">
+    <video class="scrub__video" id="scrubVideo" muted playsinline preload="auto" poster="https://images.unsplash.com/photo-1635424710928-0544e8512eae?w=1920&q=80&auto=format&fit=crop" aria-hidden="true">
+      <source src="https://videos.pexels.com/video-files/4198817/4198817-hd_1920_1080_24fps.mp4" type="video/mp4">
+    </video>
+    <div class="scrub__shade" aria-hidden="true"></div>
+
+    <div class="scrub__inner">
+      <span class="eyebrow eyebrow--light"><span class="eyebrow__line"></span>A Roof, Start to Finish</span>
+      <h2 class="scrub__title">One day on<br>your roof</h2>
+
+      <ol class="scrub__caps">
+        <li class="scrub__cap is-on">
+          <span class="scrub__num">01</span>
+          <strong>Tear off</strong>
+          <p>Old shingles, felt and nails come off down to the bare deck. Tarps go over your landscaping first.</p>
+        </li>
+        <li class="scrub__cap">
+          <span class="scrub__num">02</span>
+          <strong>Deck &amp; dry-in</strong>
+          <p>Soft or rotten boards get replaced, then ice-and-water shield along every eave and valley.</p>
+        </li>
+        <li class="scrub__cap">
+          <span class="scrub__num">03</span>
+          <strong>Shingles on</strong>
+          <p>Architectural shingles nailed to manufacturer spec, with new flashing at every penetration.</p>
+        </li>
+        <li class="scrub__cap">
+          <span class="scrub__num">04</span>
+          <strong>Clean &amp; sign off</strong>
+          <p>Two magnetic nail sweeps, a walkthrough with you, and the warranty paperwork in your hand.</p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="scrub__rail" aria-hidden="true"><span class="scrub__bar" id="scrubBar"></span></div>
+    <span class="scrub__hint" id="scrubHint" aria-hidden="true">Keep scrolling<i></i></span>
+  </div>
+</section>
+
+<!-- ============ 10 · INSURANCE CLAIMS ============ -->
 <section class="section claims" id="claims">
   <div class="container claims__grid">
     <div class="claims__media reveal">
@@ -830,7 +897,7 @@
   </div>
 </section>
 
-<!-- ============ 10 · BEFORE / AFTER ============ -->
+<!-- ============ 11 · BEFORE / AFTER ============ -->
 <section class="section compare" id="compare">
   <div class="container">
     <div class="section-head reveal">
@@ -853,7 +920,7 @@
   </div>
 </section>
 
-<!-- ============ 11 · COST ESTIMATOR ============ -->
+<!-- ============ 12 · COST ESTIMATOR ============ -->
 <section class="section estimator" id="estimator">
   <div class="container estimator__grid">
     <div class="estimator__intro reveal">
@@ -904,7 +971,7 @@
   </div>
 </section>
 
-<!-- ============ 12 · FINANCING ============ -->
+<!-- ============ 13 · FINANCING ============ -->
 <section class="section financing" id="financing">
   <div class="container">
     <div class="section-head reveal">
@@ -943,7 +1010,7 @@
   </div>
 </section>
 
-<!-- ============ 13 · PRICING ============ -->
+<!-- ============ 14 · PRICING ============ -->
 <section class="section pricing" id="pricing">
   <div class="container">
     <div class="section-head reveal">
@@ -1001,7 +1068,7 @@
   </div>
 </section>
 
-<!-- ============ 14 · COMPARISON ============ -->
+<!-- ============ 15 · COMPARISON ============ -->
 <section class="section comparison" id="comparison">
   <div class="container">
     <div class="section-head section-head--light reveal">
@@ -1028,7 +1095,7 @@
   </div>
 </section>
 
-<!-- ============ 15 · PROJECTS GALLERY ============ -->
+<!-- ============ 16 · PROJECTS GALLERY ============ -->
 <section class="section projects" id="projects">
   <div class="container">
     <div class="section-head reveal">
@@ -1056,7 +1123,7 @@
   </div>
 </section>
 
-<!-- ============ 16 · TESTIMONIALS ============ -->
+<!-- ============ 17 · TESTIMONIALS ============ -->
 <section class="section testimonials" id="testimonials">
   <div class="container">
     <div class="section-head section-head--light reveal">
@@ -1100,7 +1167,7 @@
   </div>
 </section>
 
-<!-- ============ 17 · SERVICE AREAS ============ -->
+<!-- ============ 18 · SERVICE AREAS ============ -->
 <section class="section areas" id="areas">
   <div class="container areas__grid">
     <div class="areas__content reveal">
@@ -1147,7 +1214,7 @@
   </div>
 </section>
 
-<!-- ============ 18 · TEAM ============ -->
+<!-- ============ 19 · TEAM ============ -->
 <section class="section team" id="team">
   <div class="container">
     <div class="section-head reveal">
@@ -1176,7 +1243,7 @@
   </div>
 </section>
 
-<!-- ============ 19 · GUARANTEE ============ -->
+<!-- ============ 20 · GUARANTEE ============ -->
 <section class="section guarantee" id="guarantee">
   <div class="container guarantee__inner">
     <div class="guarantee__seal reveal" aria-hidden="true">
@@ -1204,7 +1271,7 @@
   </div>
 </section>
 
-<!-- ============ 20 · FAQ ============ -->
+<!-- ============ 21 · FAQ ============ -->
 <section class="section faq" id="faq">
   <div class="container faq__grid">
     <div class="faq__intro reveal">
@@ -1243,7 +1310,7 @@
   </div>
 </section>
 
-<!-- ============ 21 · BLOG ============ -->
+<!-- ============ 22 · BLOG ============ -->
 <section class="section blog" id="blog">
   <div class="container">
     <div class="section-head reveal">
@@ -1282,7 +1349,7 @@
   </div>
 </section>
 
-<!-- ============ 22 · CONTACT / QUOTE ============ -->
+<!-- ============ 23 · CONTACT / QUOTE ============ -->
 <section class="section contact" id="contact">
   <div class="container contact__grid">
     <div class="contact__info reveal">
@@ -1335,7 +1402,7 @@
 
 </main>
 
-<!-- ============ 23 · FOOTER ============ -->
+<!-- ============ 24 · FOOTER ============ -->
 <footer class="footer" id="footer">
   <div class="container">
     <div class="footer__cta reveal">
